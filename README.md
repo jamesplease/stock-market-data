@@ -1,5 +1,7 @@
 # stock-market-data
 
+[![npm version](https://img.shields.io/npm/v/stock-market-data.svg)](https://www.npmjs.com/package/stock-market-data)
+
 U.S. Stock Market data from Robert Shiller.
 
 ## Installation
