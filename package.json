@@ -1,6 +1,6 @@
 {
   "name": "stock-market-data",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Stock market data from Robert Shiller",
   "main": "data.json",
   "scripts": {
