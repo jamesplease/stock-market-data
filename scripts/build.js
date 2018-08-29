@@ -58,6 +58,18 @@ const labeledData = _.chain(dataRows)
     const labeledRow = _.reduce(
       dataRow,
       (result, columnEntry, columnIndex) => {
+
+        // Sometimes, Robert Shiller puts unstructured information in his data. This is an effort
+        // to guard us against that.
+        // One example is:
+        //
+        // ,Aug 2018 CPI is Aug 1 close,,,"July, Aug, 2018 CPI estimated",,Aug 2018 long rate is Aug 1 value,,,,
+        //
+        // Bob, we love ya, but ya ain't makin this easy!
+        if (!attributeNames[columnIndex]) {
+          return result;
+        }
+
         // First, we get the "key" for this column from the attribute names array above
         const columnName = attributeNames[columnIndex].key;
 
