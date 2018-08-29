@@ -1,0 +1,24 @@
+{
+  "name": "stock-market-data",
+  "version": "0.0.1",
+  "description": "Stock market data from Robert Shiller",
+  "main": "data.json",
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "author": "James Smith <jamesplease2@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamesplease/stock-market-data.git"
+  },
+  "files": [
+    "data.json",
+    "ie_data.csv"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "chalk": "2.4.1",
+    "lodash": "4.17.10",
+    "mkdirp": "0.5.1"
+  }
+}
