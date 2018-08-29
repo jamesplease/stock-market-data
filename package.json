@@ -4,6 +4,7 @@
   "description": "Stock market data from Robert Shiller",
   "main": "data.json",
   "scripts": {
+    "prepublishOnly": "npm run build",
     "build": "node scripts/build.js"
   },
   "author": "James Smith <jamesplease2@gmail.com>",
