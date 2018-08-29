@@ -12,6 +12,18 @@
     "type": "git",
     "url": "https://github.com/jamesplease/stock-market-data.git"
   },
+  "keywords": [
+    "stock",
+    "market",
+    "stock market",
+    "us",
+    "equities",
+    "money",
+    "finances",
+    "finance",
+    "financial",
+    "shiller"
+  ],
   "files": [
     "data.json",
     "ie_data.csv"
