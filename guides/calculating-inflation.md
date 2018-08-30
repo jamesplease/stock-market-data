@@ -2,8 +2,8 @@
 
 Inflation is the tendency for a currency to decrease in value over time.
 
-Calculating inflation requires two points in time, as it represents
-the decrease in the purchasing power of the dollar over that interval.
+Because inflation represents a change over time, it requires two data
+points to be calculated: a start and an end.
 
 ### Computing Inflation
 
@@ -16,11 +16,10 @@ inflation = endCpi / startCpi
 
 ### CPI in this Dataset
 
-In the `stock-market-data` dataset, the Consumer Price Index is available under
-the `cpi` key.
+The Consumer Price Index is available under the `cpi` key.
 
 The following code snippet demonstrates how you can access the CPI
-for a particular month.
+for the first month in the dataset (which happens to be January 1971).
 
 ```js
 import stockMarketData from 'stock-market-data';
@@ -31,10 +30,11 @@ const firstCpi = stockMarketData[0].cpi;
 
 ### Example
 
-From the dataset, we can see that the CPI in January, 1971 was 12.46. The CPI for
-January, 2018 was 49.28.
+From the data, we can see that the CPI in January 1971 was 12.46, and the CPI in
+January 2018 was 49.28.
 
-Placing these values into the equation from above, we can see that:
+Placing these values into the equation from above, we can compute the inflation
+in this period of time:
 
 ```
 inflation = endCpi / startCpi
