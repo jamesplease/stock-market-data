@@ -5,10 +5,12 @@ Inflation is the tendency for a currency to decrease in value over time.
 Because inflation represents a change over time, it requires two data
 points to be calculated: a start and an end.
 
-### Computing Inflation
+> To learn more about inflation, refer to [**this guide**](https://hearth-app.com/guides/inflation).
 
-Inflation is derived from the Consumer Price Index, or CPI, of two moments
-in time. The formula for inflation is:
+### Formula
+
+Inflation is derived from the [Consumer Price Index](https://www.investopedia.com/terms/c/consumerpriceindex.asp),
+or CPI, of two moments in time. The formula for inflation is:
 
 ```
 inflation = endCpi / startCpi

@@ -1,0 +1,6 @@
+# Guides
+
+Use these guides to learn about computing common values from this dataset, or to
+increase your level of understanding of the data provided.
+
+- [Calculating Inflation](./calculating-inflation.md)

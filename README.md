@@ -18,6 +18,14 @@ or [yarn](https://yarnpkg.com/):
 yarn add stock-market-data
 ```
 
+## Documentation
+
+- [**Usage**](#usage)
+- [**Data**](#data)
+- [**Guides** ⇗](./guides)
+  - [Calculating Inflation ⇗](./guides/calculating-inflation.md)
+- [**Source**](#data)
+
 ## Usage
 
 The main export of this module is an array of stock market data. Each object
