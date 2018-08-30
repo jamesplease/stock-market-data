@@ -70,7 +70,8 @@ The following table goes into more detail about the individual data points provi
 
 ## Source
 
-The information in this package was compiled by [Robert Shiller](http://www.econ.yale.edu/~shiller/bio.htm).
+The information in this package was compiled by [Robert Shiller](http://www.econ.yale.edu/~shiller/bio.htm). To
+learn more about how this information is collected, refer to the link below.
 
 - [U.S. Stock Market Data](http://www.econ.yale.edu/~shiller/data.htm)
 
