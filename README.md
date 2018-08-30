@@ -23,6 +23,7 @@ yarn add stock-market-data
 - [**Usage**](#usage)
 - [**Data**](#data)
 - [**Guides** ⇗](./guides)
+  - [Calculating Stock Market Growth ⇗](./guides/calculating-stock-market-growth.md)
   - [Calculating Inflation ⇗](./guides/calculating-inflation.md)
 - [**Source**](#data)
 
