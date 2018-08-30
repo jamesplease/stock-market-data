@@ -27,7 +27,7 @@ for the first month in the dataset (which happens to be January 1971).
 import stockMarketData from 'stock-market-data';
 
 // The CPI of the first month in the dataset
-const firstCpi = stockMarketData[0].cpi;
+const cpi = stockMarketData[0].cpi;
 ```
 
 ### Example

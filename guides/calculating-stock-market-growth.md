@@ -30,7 +30,7 @@ for the first month in the dataset (which happens to be January 1971).
 import stockMarketData from 'stock-market-data';
 
 // The cost of a share of the S&P 500 for the first month in the dataset
-const firstCpi = stockMarketData[0].comp;
+const sharePrice = stockMarketData[0].comp;
 ```
 
 ### Example

@@ -25,6 +25,7 @@ yarn add stock-market-data
 - [**Guides** ⇗](./guides)
   - [Calculating Stock Market Growth ⇗](./guides/calculating-stock-market-growth.md)
   - [Calculating Inflation ⇗](./guides/calculating-inflation.md)
+  - [Calculating Dividend Yield ⇗](./guides/calculating-dividend-yield.md)
 - [**Source**](#data)
 
 ## Usage
