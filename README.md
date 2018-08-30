@@ -56,7 +56,7 @@ The following table goes into more detail about the individual data points provi
 | year                | The year, as a string                                                                                                            |
 | month               | The month, as a string. `"01"` is January, `"12"` is December.                                                                   |
 | date                | Another string representation of the date for this month of data in the format `{year}.{month}`                                  |
-| dateFractionDecimal | Another string representation of the date for this month of data in the format `${year}.{completionPercentOfYear}                |
+| dateFractionDecimal | Another string representation of the date for this month of data in the format `{year}.{completionPercentOfYear}`                |
 | dateFraction        | Another string representation of the date for this month of data. This value represents the completion of the year as a percent. |
 | comp                | The cost of a single share of the S&P 500                                                                                        |
 | dividend            | Dividends paid, in USD                                                                                                           |
