@@ -33,12 +33,12 @@ console.log(stockMarketData[0]);
 //   year: "1871",
 //   month: "01",
 //   date: "1871.01",
+//   dateFractionDecimal: "04",
+//   dateFraction: "1871.04",
 //   comp: "4.44",
 //   dividend: "0.26",
 //   earnings: "0.40",
 //   cpi: "12.46",
-//   dateFractionDecimal: "04",
-//   dateFraction: "1871.04",
 //   lir: "5.32",
 //   realPrice: "88.27",
 //   realDividend: "5.17",
@@ -46,6 +46,27 @@ console.log(stockMarketData[0]);
 //   cape: "NA"
 // }
 ```
+
+## Data
+
+The following table goes into more detail about the individual data points provided for each month.
+
+| Key                 | Description                                                                                                                      |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| year                | The year, as a string                                                                                                            |
+| month               | The month, as a string. `"01"` is January, `"12"` is December.                                                                   |
+| date                | Another string representation of the date for this month of data in the format `{year}.{month}`                                  |
+| dateFraction        | Another string representation of the date for this month of data. This value represents the completion of the year as a percent. |
+| dateFractionDecimal | Another string representation of the date for this month of data in the format `${year}.{completionPercentOfYear}                |
+| comp                | The cost of a single share of the S&P 500                                                                                        |
+| dividend            | Dividends paid, in USD                                                                                                           |
+| earnings            | Earnings per share                                                                                                               |
+| cpi                 | The value of the Consumer Price Index (CPI)                                                                                      |
+| lir                 | "Long Interest Rate (GS10)" (I am not sure what this is)                                                                         |
+| realPrice           | Inflation adjusted `comp` (compared against the last month in the dataset)                                                       |
+| realDividend        | Inflated adjusted `dividend` (compared against the last month in the dataset)                                                    |
+| realEarnings        | Inflation adjusted `earnings` (compared against the last month in the dataset)                                                   |
+| cape                | "Cyclically Adjusted Price Earnings Ratio" (I am not sure what this is)                                                          |
 
 ## Source
 
