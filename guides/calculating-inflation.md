@@ -1,0 +1,48 @@
+# Calculating Inflation
+
+Inflation is the tendency for a currency to decrease in value over time.
+
+Calculating inflation requires two points in time, as it represents
+the decrease in the purchasing power of the dollar over that interval.
+
+### Computing Inflation
+
+Inflation is derived from the Consumer Price Index, or CPI, of two moments
+in time. The formula for inflation is:
+
+```
+inflation = endCpi / startCpi
+```
+
+### CPI in this Dataset
+
+In the `stock-market-data` dataset, the Consumer Price Index is available under
+the `cpi` key.
+
+The following code snippet demonstrates how you can access the CPI
+for a particular month.
+
+```js
+import stockMarketData from 'stock-market-data';
+
+// The CPI of the first month in the dataset
+const firstCpi = stockMarketData[0].cpi;
+```
+
+### Example
+
+From the dataset, we can see that the CPI in January, 1971 was 12.46. The CPI for
+January, 2018 was 49.28.
+
+Placing these values into the equation from above, we can see that:
+
+```
+inflation = endCpi / startCpi
+          = 49.28  / 12.46
+          = 3.96
+```
+
+Note that this is the decimal representation of inflation. To convert it to a percentage,
+we must multiply this value by 100.
+
+Accordingly, inflation between January 1971 and January 2018 was 396%.
