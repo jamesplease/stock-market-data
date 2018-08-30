@@ -70,11 +70,11 @@ The following table goes into more detail about the individual data points provi
 | dividend            | Dividends paid, in USD                                                                                                           |
 | earnings            | Earnings per share                                                                                                               |
 | cpi                 | The value of the Consumer Price Index (CPI)                                                                                      |
-| lir                 | "Long Interest Rate (GS10)" (I am not sure what this is)                                                                         |
+| lir                 | The historical interest rates for the 10-Year Treasury Note                                                                      |
 | realPrice           | Inflation adjusted `comp` (compared against the last month in the dataset)                                                       |
 | realDividend        | Inflated adjusted `dividend` (compared against the last month in the dataset)                                                    |
 | realEarnings        | Inflation adjusted `earnings` (compared against the last month in the dataset)                                                   |
-| cape                | "Cyclically Adjusted Price Earnings Ratio" (I am not sure what this is)                                                          |
+| cape                | [Cyclically Adjusted Price Earnings Ratio](https://en.wikipedia.org/wiki/Cyclically_adjusted_price-to-earnings_ratio)            |
 
 ## Source
 
