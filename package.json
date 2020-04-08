@@ -31,7 +31,7 @@
   "license": "MIT",
   "devDependencies": {
     "chalk": "2.4.1",
-    "lodash": "4.17.10",
+    "lodash": "4.17.15",
     "mkdirp": "0.5.1"
   }
 }
