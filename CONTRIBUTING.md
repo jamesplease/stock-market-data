@@ -14,4 +14,4 @@ instructions to update the data in this package:
 
 That's it! Open a PR, and I'll get it merged and released.
 
-One las thing – thanks again!
+One last thing – thanks again!
