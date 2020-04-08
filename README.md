@@ -4,6 +4,8 @@
 
 U.S. Stock Market data from Robert Shiller.
 
+> Last updated: **April 2020**
+
 ## Installation
 
 Install using [npm](https://www.npmjs.com):
