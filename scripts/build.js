@@ -38,7 +38,9 @@ const attributeNames = [
   { displayName: 'Long Interest Rate GS10', key: 'lir' },
   { displayName: 'Real Price', key: 'realPrice' },
   { displayName: 'Real Dividend', key: 'realDividend' },
+  { displayName: 'Real Total Return Price', key: 'realTotalReturnPrice' },
   { displayName: 'Real Earnings', key: 'realEarnings' },
+  { displayName: 'Real Total Return Scaled Earnings', key: 'realTotalReturnScaledEarnings' },
   {
     displayName: 'Cyclically Adjusted Price Earnings Ratio (P/E10) or (CAPE)',
     key: 'cape'
