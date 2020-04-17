@@ -1,4 +1,4 @@
-interface YearMarketData {
+export interface MarketDataValue {
   year: number;
   month: number;
   date: number;
@@ -17,9 +17,9 @@ interface YearMarketData {
   cape: number | null;
 }
 
-interface MarketData {
-  [Key: string]: YearMarketData;
-  [Key: number]: YearMarketData;
+export interface MarketData {
+  [Key: string]: MarketDataValue;
+  [Key: number]: MarketDataValue;
 }
 
 declare const MarketData: MarketData;
