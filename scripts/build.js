@@ -18,11 +18,33 @@ const marketDataArray = marketData.split('\n').map((r) => r.split(','));
 // This is the array index of the CSV line that represents the header of the table
 const HEADER_LINE = _.findIndex(marketDataArray, (val) => val[0] === 'Date');
 
+if (HEADER_LINE !== 7) {
+  console.log(
+    'The header row index has changed. Please check the new CSV for structural changes. You must update build.js to fix this error.'
+  );
+  process.exit(1);
+}
+
 // This is the first line that contains the market data (rather than headers/chart metadata)
 const FIRST_DATA_LINE = HEADER_LINE + 1;
 
+const firstDataRow = marketDataArray[FIRST_DATA_LINE];
+if (firstDataRow[0] !== '1871.01') {
+  console.log(
+    'The structure of the CSV has changed. 1871.01 does not appear where it should. You must update build.js to fix this error.'
+  );
+  process.exit(1);
+}
+
 // The total number of rows that contain market data
 const DATA_ROW_COUNT = marketDataArray.length - 1 - FIRST_DATA_LINE;
+
+if (DATA_ROW_COUNT < 1793) {
+  console.log(
+    'There are fewer rows than expected. Please check if the structure of the CSV has changed.'
+  );
+  process.exit(1);
+}
 
 // This is a mapping that represents the names of the columns on the chart
 const attributeNames = [
