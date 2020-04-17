@@ -79,7 +79,19 @@ const labeledData = _.chain(dataRows)
           const dateInformation = columnEntry.split('.');
 
           const numericYear = Number(dateInformation[0]);
-          const numericMonth = Number(dateInformation[1]);
+          const stringMonth = dateInformation[1];
+
+          // "01" = the first month
+          // "1"  = the tenth month
+          // Bob is really trying to kill us
+          let numericMonth;
+          if (stringMonth === '01') {
+            numericMonth = 1;
+          } else if (stringMonth === '1') {
+            numericMonth = 10;
+          } else {
+            numericMonth = Number(stringMonth);
+          }
 
           if (Number.isNaN(numericYear) || Number.isNaN(numericMonth)) {
             console.log(
