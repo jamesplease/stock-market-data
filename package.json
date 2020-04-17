@@ -29,7 +29,8 @@
   ],
   "files": [
     "data.json",
-    "ie_data.csv"
+    "ie_data.csv",
+    "types"
   ],
   "license": "MIT",
   "devDependencies": {
