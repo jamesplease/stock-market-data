@@ -46,6 +46,19 @@ describe('marketData', () => {
     });
   });
 
+  // This is to test that the 10th month, which is in the spreadsheets as "1",
+  // can be parsed correctly.
+  describe('handling month format', () => {
+    it('does not create two values for January', () => {
+      const value = _.filter(marketData, {
+        year: 1990,
+        month: 1,
+      });
+
+      expect(value.length).toBe(1);
+    });
+  });
+
   describe('values', () => {
     it('has no values that are NaN or strings', () => {
       _.forEach(marketData, (monthValue) => {
@@ -215,7 +228,7 @@ describe('marketData', () => {
             month: 1,
           });
 
-          expect(monthValue.realEarnings).toBe(41.95);
+          expect(monthValue.realEarnings).toBe(45.76);
         });
       });
     });
