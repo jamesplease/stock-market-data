@@ -103,10 +103,6 @@ const labeledData = _.chain(dataRows)
         const numericValue = Number(stringValue);
         const valueToUse = Number.isNaN(numericValue) ? null : numericValue;
 
-        if (columnName === 'cape') {
-          console.log('hi', stringValue, numericValue, valueToUse);
-        }
-
         result[columnName] = valueToUse;
         return result;
       },
