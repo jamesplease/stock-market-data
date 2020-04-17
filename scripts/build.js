@@ -7,20 +7,16 @@ const mkdirp = require('mkdirp');
 const SOURCE_DIRECTORY = path.join(__dirname, '..');
 const SOURCE_FILENAME = 'ie_data.csv';
 
-const DESTINATION_DIRECTORY = path.join(
-  __dirname,
-  '..',
-  'src'
-);
+const DESTINATION_DIRECTORY = path.join(__dirname, '..');
 const DESTINATION_FILENAME = 'data.json';
 
 const marketDataFileLoc = path.join(SOURCE_DIRECTORY, SOURCE_FILENAME);
 const marketData = fs.readFileSync(marketDataFileLoc, 'utf-8');
 
-const marketDataArray = marketData.split('\n').map(r => r.split(','));
+const marketDataArray = marketData.split('\n').map((r) => r.split(','));
 
 // This is the array index of the CSV line that represents the header of the table
-const HEADER_LINE = _.findIndex(marketDataArray, val => val[0] === 'Date');
+const HEADER_LINE = _.findIndex(marketDataArray, (val) => val[0] === 'Date');
 
 // This is the first line that contains the market data (rather than headers/chart metadata)
 const FIRST_DATA_LINE = HEADER_LINE + 1;
@@ -41,19 +37,22 @@ const attributeNames = [
   { displayName: 'Real Dividend', key: 'realDividend' },
   { displayName: 'Real Total Return Price', key: 'realTotalReturnPrice' },
   { displayName: 'Real Earnings', key: 'realEarnings' },
-  { displayName: 'Real Total Return Scaled Earnings', key: 'realTotalReturnScaledEarnings' },
+  {
+    displayName: 'Real Total Return Scaled Earnings',
+    key: 'realTotalReturnScaledEarnings',
+  },
   {
     displayName: 'Cyclically Adjusted Price Earnings Ratio (P/E10) or (CAPE)',
-    key: 'cape'
-  }
+    key: 'cape',
+  },
 ];
 
 // An array of the indices for every row in the chart containing data
-const dataRows = _.times(DATA_ROW_COUNT, n => n + FIRST_DATA_LINE);
+const dataRows = _.times(DATA_ROW_COUNT, (n) => n + FIRST_DATA_LINE);
 
 // This maps the data from being an array of values to an object of key-value pairs
 const labeledData = _.chain(dataRows)
-  .map(dataIndex => {
+  .map((dataIndex) => {
     const dataRow = marketDataArray[dataIndex];
 
     // This converts the array form of the row to be an object with keys mapped
@@ -61,7 +60,6 @@ const labeledData = _.chain(dataRows)
     const labeledRow = _.reduce(
       dataRow,
       (result, columnEntry, columnIndex) => {
-
         // Sometimes, Robert Shiller puts unstructured information in his data. This is an effort
         // to guard us against that.
         // One example is:
@@ -84,7 +82,9 @@ const labeledData = _.chain(dataRows)
           const numericMonth = Number(dateInformation[1]);
 
           if (Number.isNaN(numericYear) || Number.isNaN(numericMonth)) {
-            console.log('There was an error while parsing the date of this data set. The format of the CSV may have changed.');
+            console.log(
+              'There was an error while parsing the date of this data set. The format of the CSV may have changed.'
+            );
             process.exit(1);
           }
 
@@ -102,7 +102,6 @@ const labeledData = _.chain(dataRows)
         const stringValue = columnEntry.replace('\r', '');
         const numericValue = Number(stringValue);
         const valueToUse = Number.isNaN(numericValue) ? null : numericValue;
-
 
         if (columnName === 'cape') {
           console.log('hi', stringValue, numericValue, valueToUse);
