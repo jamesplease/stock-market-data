@@ -10,6 +10,7 @@ const SOURCE_FILENAME = 'ie_data.csv';
 const DESTINATION_DIRECTORY = path.join(
   __dirname,
   '..',
+  'src'
 );
 const DESTINATION_FILENAME = 'data.json';
 
@@ -78,17 +79,36 @@ const labeledData = _.chain(dataRows)
         if (columnName === 'date' && columnEntry) {
           // For dates, we also store the month and year separately
           const dateInformation = columnEntry.split('.');
-          result.year = dateInformation[0];
-          result.month = dateInformation[1];
+
+          const numericYear = Number(dateInformation[0]);
+          const numericMonth = Number(dateInformation[1]);
+
+          if (Number.isNaN(numericYear) || Number.isNaN(numericMonth)) {
+            console.log('There was an error while parsing the date of this data set. The format of the CSV may have changed.');
+            process.exit(1);
+          }
+
+          result.year = numericYear;
+          result.month = numericMonth;
         } else if (columnName === 'dateFraction') {
           // The fraction contains the year as well, so we store an extra field that's just
           // the fractional value
           const fractionInformation = columnEntry.split('.');
-          result.dateFractionDecimal = fractionInformation[1];
+          const numericFractionInformation = Number(fractionInformation[1]);
+          result.dateFractionDecimal = numericFractionInformation;
         }
 
-        // '\r' appears in every CAPE column, so we swap that out
-        result[columnName] = columnEntry.replace('\r', '');
+        // '\r' appears in every CAPE column, so we remove it
+        const stringValue = columnEntry.replace('\r', '');
+        const numericValue = Number(stringValue);
+        const valueToUse = Number.isNaN(numericValue) ? null : numericValue;
+
+
+        if (columnName === 'cape') {
+          console.log('hi', stringValue, numericValue, valueToUse);
+        }
+
+        result[columnName] = valueToUse;
         return result;
       },
       {}
