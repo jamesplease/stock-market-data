@@ -18,6 +18,13 @@ const marketDataArray = marketData.split('\n').map((r) => r.split(','));
 // This is the array index of the CSV line that represents the header of the table
 const HEADER_LINE = _.findIndex(marketDataArray, (val) => val[0] === 'Date');
 
+if (HEADER_LINE === -1) {
+  console.log(
+    'The header row could not be found. Please check the new CSV for structural changes. You must update build.js to fix this error.'
+  );
+  process.exit(1);
+}
+
 if (HEADER_LINE !== 7) {
   console.log(
     'The header row index has changed. Please check the new CSV for structural changes. You must update build.js to fix this error.'
