@@ -20,6 +20,8 @@ or [yarn](https://yarnpkg.com/):
 yarn add stock-market-data
 ```
 
+You can also download the data directly at [this link](https://github.com/jamesplease/stock-market-data/blob/master/data.json).
+
 ## Documentation
 
 - [**Usage**](#usage)
