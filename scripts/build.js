@@ -5,9 +5,17 @@ const chalk = require('chalk');
 const mkdirp = require('mkdirp');
 const XLSX = require('xlsx');
 
-const workbook = XLSX.readFile('./ie_data.xls', {
+const SOURCE_DIRECTORY = path.join(__dirname, '..');
+const SOURCE_FILENAME = 'ie_data.xls';
+
+const DESTINATION_DIRECTORY = path.join(__dirname, '..');
+const DESTINATION_FILENAME = 'data.json';
+
+const sourceFileLoc = path.join(SOURCE_DIRECTORY, SOURCE_FILENAME);
+const workbook = XLSX.readFile(sourceFileLoc, {
   raw: true,
 });
+
 var first_sheet_name = workbook.SheetNames[4];
 var worksheet = workbook.Sheets[first_sheet_name];
 
@@ -93,10 +101,8 @@ const parsedData = _.chain(labeledData)
 
 const marketDataJson = JSON.stringify(parsedData);
 
-const DESTINATION_DIRECTORY = path.join(__dirname, '..');
-const DESTINATION_FILENAME = 'data.json';
-
 mkdirp.sync(DESTINATION_DIRECTORY);
 const destFileLoc = path.join(DESTINATION_DIRECTORY, DESTINATION_FILENAME);
+
 fs.writeFileSync(destFileLoc, marketDataJson);
 console.log(chalk.green(`Success! Market data created at: "${destFileLoc}"`));
