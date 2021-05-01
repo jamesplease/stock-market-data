@@ -1,5 +1,10 @@
 # Changelog
 
+### v2.1.0 (2021/4/30)
+
+- Added data through April 2021
+- Historical data no longer rounds to hundredths
+
 ### v2.0.0 (2020/4/16)
 
 - **Breaking**: All values are now either numbers or `null`. There are no strings containing numbers, and no `"N/A" values.

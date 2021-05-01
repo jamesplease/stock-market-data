@@ -15,6 +15,7 @@ describe('marketData', () => {
     it('each month has the right number of keys', () => {
       _.forEach(marketData, (monthValue) => {
         const keys = Object.keys(monthValue);
+
         expect(keys.length).toBe(16);
       });
     });
@@ -126,17 +127,23 @@ describe('marketData', () => {
     });
 
     describe('dividend', () => {
-      it('has values that are all numeric', () => {
+      it('has values that are all numeric or null', () => {
         _.forEach(marketData, (monthValue) => {
-          expect(typeof monthValue.dividend === 'number').toBe(true);
+          expect(
+            typeof monthValue.dividend === 'number' ||
+              monthValue.dividend === null
+          ).toBe(true);
         });
       });
     });
 
     describe('earnings', () => {
-      it('has values that are all numeric', () => {
+      it('has values that are all numeric or null', () => {
         _.forEach(marketData, (monthValue) => {
-          expect(typeof monthValue.earnings === 'number').toBe(true);
+          expect(
+            typeof monthValue.earnings === 'number' ||
+              monthValue.earnings === null
+          ).toBe(true);
         });
       });
     });
@@ -156,17 +163,11 @@ describe('marketData', () => {
         });
       });
 
-      it('has values that are all integers', () => {
-        _.forEach(marketData, (monthValue) => {
-          expect(Number.isInteger(monthValue.dateFractionDecimal)).toBe(true);
-        });
-      });
-
-      it('has values that are valid fractions', () => {
+      it('has values that are valid values', () => {
         _.forEach(marketData, (monthValue) => {
           expect(
             monthValue.dateFractionDecimal >= 0 &&
-              monthValue.dateFractionDecimal <= 100
+              monthValue.dateFractionDecimal <= 1
           ).toBe(true);
         });
       });
@@ -197,9 +198,12 @@ describe('marketData', () => {
     });
 
     describe('realDividend', () => {
-      it('has values that are all numeric', () => {
+      it('has values that are all numeric or null', () => {
         _.forEach(marketData, (monthValue) => {
-          expect(typeof monthValue.realDividend === 'number').toBe(true);
+          expect(
+            typeof monthValue.realDividend === 'number' ||
+              monthValue.realDividend === null
+          ).toBe(true);
         });
       });
     });
@@ -215,29 +219,36 @@ describe('marketData', () => {
     });
 
     describe('realEarnings', () => {
-      it('has values that are all numeric', () => {
+      it('has values that are all numeric or null', () => {
         _.forEach(marketData, (monthValue) => {
-          expect(typeof monthValue.realEarnings === 'number').toBe(true);
+          expect(
+            typeof monthValue.realEarnings === 'number' ||
+              monthValue.realEarnings === null
+          ).toBe(true);
         });
       });
 
-      describe('has values that are unchanged', () => {
-        it('1990, December', () => {
-          const monthValue = _.find(marketData, {
-            year: 1990,
-            month: 1,
-          });
+      // This test doesn't make sense as real earnings are based on the latest
+      // item in the data set.
 
-          expect(monthValue.realEarnings).toBe(45.76);
-        });
-      });
+      // describe('has values that are unchanged', () => {
+      //   it('1990, January', () => {
+      //     const monthValue = _.find(marketData, {
+      //       year: 1990,
+      //       month: 1,
+      //     });
+
+      //     expect(monthValue.realEarnings).toBe(45.76);
+      //   });
+      // });
     });
 
     describe('realTotalReturnScaledEarnings', () => {
-      it('has values that are all numeric', () => {
+      it('has values that are all numeric or null', () => {
         _.forEach(marketData, (monthValue) => {
           expect(
-            typeof monthValue.realTotalReturnScaledEarnings === 'number'
+            typeof monthValue.realTotalReturnScaledEarnings === 'number' ||
+              monthValue.realTotalReturnScaledEarnings === null
           ).toBe(true);
         });
       });
@@ -268,7 +279,7 @@ describe('marketData', () => {
             month: 1,
           });
 
-          expect(monthValue.cape).toBe(5.99);
+          expect(monthValue.cape).toBe(5.989667771139438);
         });
 
         it('1990, December', () => {
@@ -277,7 +288,7 @@ describe('marketData', () => {
             month: 12,
           });
 
-          expect(monthValue.cape).toBe(15.85);
+          expect(monthValue.cape).toBe(15.846314974728765);
         });
       });
     });
