@@ -3,199 +3,100 @@ const path = require('path');
 const _ = require('lodash');
 const chalk = require('chalk');
 const mkdirp = require('mkdirp');
+const XLSX = require('xlsx');
 
-const SOURCE_DIRECTORY = path.join(__dirname, '..');
-const SOURCE_FILENAME = 'ie_data.csv';
+const workbook = XLSX.readFile('./ie_data.xls', {
+  raw: true,
+});
+var first_sheet_name = workbook.SheetNames[4];
+var worksheet = workbook.Sheets[first_sheet_name];
 
-const DESTINATION_DIRECTORY = path.join(__dirname, '..');
-const DESTINATION_FILENAME = 'data.json';
-
-const marketDataFileLoc = path.join(SOURCE_DIRECTORY, SOURCE_FILENAME);
-const marketData = fs.readFileSync(marketDataFileLoc, 'utf-8');
-
-const marketDataArray = marketData.split('\n').map((r) => r.split(','));
-
-// This is the array index of the CSV line that represents the header of the table
-const HEADER_LINE = _.findIndex(marketDataArray, (val) => val[0] === 'Date');
-
-if (HEADER_LINE === -1) {
-  console.log(
-    'The header row could not be found. Please check the new CSV for structural changes. You must update build.js to fix this error.'
-  );
-  process.exit(1);
-}
-
-if (HEADER_LINE !== 7) {
-  console.log(
-    'The header row index has changed. Please check the new CSV for structural changes. You must update build.js to fix this error.'
-  );
-  process.exit(1);
-}
-
-// This is the first line that contains the market data (rather than headers/chart metadata)
-const FIRST_DATA_LINE = HEADER_LINE + 1;
-
-const firstDataRow = marketDataArray[FIRST_DATA_LINE];
-if (firstDataRow[0] !== '1871.01') {
-  console.log(
-    'The structure of the CSV has changed. 1871.01 does not appear where it should. You must update build.js to fix this error.'
-  );
-  process.exit(1);
-}
-
-// The total number of rows that contain market data
-const DATA_ROW_COUNT = marketDataArray.length - 1 - FIRST_DATA_LINE;
-
-if (DATA_ROW_COUNT < 1793) {
-  console.log(
-    'There are fewer rows than expected. Please check if the structure of the CSV has changed.'
-  );
-  process.exit(1);
-}
-
-// This is a mapping that represents the names of the columns on the chart
 const attributeNames = [
-  { displayName: 'Date', key: 'date' },
-  { displayName: 'S&P Comp. (P)', key: 'comp' },
-  { displayName: 'Dividend (D)', key: 'dividend' },
-  { displayName: 'Earnings (E)', key: 'earnings' },
-  { displayName: 'Consumer Price Index (CPI)', key: 'cpi' },
-  { displayName: 'Date Fraction', key: 'dateFraction' },
-  { displayName: 'Long Interest Rate GS10', key: 'lir' },
-  { displayName: 'Real Price', key: 'realPrice' },
-  { displayName: 'Real Dividend', key: 'realDividend' },
-  { displayName: 'Real Total Return Price', key: 'realTotalReturnPrice' },
-  { displayName: 'Real Earnings', key: 'realEarnings' },
+  { displayName: 'A', key: 'date' },
+  { displayName: 'B', key: 'comp' },
+  { displayName: 'C', key: 'dividend' },
+  { displayName: 'D', key: 'earnings' },
+  { displayName: 'E', key: 'cpi' },
+  { displayName: 'F', key: 'dateFraction' },
+  { displayName: 'G', key: 'lir' },
+  { displayName: 'H', key: 'realPrice' },
+  { displayName: 'I', key: 'realDividend' },
+  { displayName: 'J', key: 'realTotalReturnPrice' },
+  { displayName: 'K', key: 'realEarnings' },
   {
-    displayName: 'Real Total Return Scaled Earnings',
+    displayName: 'L',
     key: 'realTotalReturnScaledEarnings',
   },
   {
-    displayName: 'Cyclically Adjusted Price Earnings Ratio (P/E10) or (CAPE)',
+    displayName: 'M',
     key: 'cape',
   },
 ];
 
-// An array of the indices for every row in the chart containing data
-const dataRows = _.times(DATA_ROW_COUNT, (n) => n + FIRST_DATA_LINE);
+const keys = attributeNames.map((attr) => attr.key);
 
-// This maps the data from being an array of values to an object of key-value pairs
-const labeledData = _.chain(dataRows)
-  .map((dataIndex) => {
-    const dataRow = marketDataArray[dataIndex];
+var labeledData = XLSX.utils.sheet_to_json(worksheet, {
+  header: keys,
+  raw: true,
+});
 
-    // This converts the array form of the row to be an object with keys mapped
-    // to the `attributeNames` above
-    const labeledRow = _.reduce(
-      dataRow,
-      (result, columnEntry, columnIndex) => {
-        // Sometimes, Robert Shiller puts unstructured information in his data. This is an effort
-        // to guard us against that.
-        // One example is:
-        //
-        // ,Aug 2018 CPI is Aug 1 close,,,"July, Aug, 2018 CPI estimated",,Aug 2018 long rate is Aug 1 value,,,,
-        //
-        // Bob, we love ya, but ya ain't makin this easy!
-        if (!attributeNames[columnIndex]) {
-          return result;
-        }
+const parsedData = _.chain(labeledData)
+  .filter((data) => typeof data.date === 'number')
+  .map((data) => {
+    const dateString = String(data.date);
+    const dateInformation = dateString.split('.');
 
-        // First, we get the "key" for this column from the attribute names array above
-        const columnName = attributeNames[columnIndex].key;
+    const numericYear = Number(dateInformation[0]);
+    const stringMonth = dateInformation[1];
 
-        if (columnName === 'date' && columnEntry) {
-          // For dates, we also store the month and year separately
-          const dateInformation = columnEntry.split('.');
+    // "01" = the first month
+    // "1"  = the tenth month
+    // Bob is really trying to kill us
+    let numericMonth;
+    if (stringMonth === '01') {
+      numericMonth = 1;
+    } else if (stringMonth === '1') {
+      numericMonth = 10;
+    } else {
+      numericMonth = Number(stringMonth);
+    }
 
-          const numericYear = Number(dateInformation[0]);
-          const stringMonth = dateInformation[1];
+    if (Number.isNaN(numericYear) || Number.isNaN(numericMonth)) {
+      console.error(
+        'There was an error while parsing the date of this data set. The format of the CSV may have changed.'
+      );
+      process.exit(1);
+    }
 
-          // "01" = the first month
-          // "1"  = the tenth month
-          // Bob is really trying to kill us
-          let numericMonth;
-          if (stringMonth === '01') {
-            numericMonth = 1;
-          } else if (stringMonth === '1') {
-            numericMonth = 10;
-          } else {
-            numericMonth = Number(stringMonth);
-          }
+    const fractionInfoString = String(data.dateFraction);
+    const fractionInformation = fractionInfoString.split('.');
+    const numericFractionInformation = Number(`.${fractionInformation[1]}`);
 
-          if (Number.isNaN(numericYear) || Number.isNaN(numericMonth)) {
-            console.log(
-              'There was an error while parsing the date of this data set. The format of the CSV may have changed.'
-            );
-            process.exit(1);
-          }
-
-          result.year = numericYear;
-          result.month = numericMonth;
-        } else if (columnName === 'dateFraction') {
-          // The fraction contains the year as well, so we store an extra field that's just
-          // the fractional value
-          const fractionInformation = columnEntry.split('.');
-          const numericFractionInformation = Number(fractionInformation[1]);
-          result.dateFractionDecimal = numericFractionInformation;
-        }
-
-        if (result.year === 1990 && result.month === 12) {
-          console.log(
-            columnIndex,
-            `${result.year}-${result.month}: ${columnEntry}`
-          );
-        }
-
-        // '\r' appears in every CAPE column, so we remove it
-        let stringValue = columnEntry.replace('\r', '');
-
-        // Get rid of spaces and double quotes. Bob is keeping us on our toes.
-        stringValue = stringValue.replaceAll(/\s/g, '');
-        stringValue = stringValue.replaceAll('"', '');
-        // He also added commas :(
-        stringValue = stringValue.replaceAll(',', '');
-
-        // if (columnName === 'cape') {
-        //   console.log(
-        //     columnIndex,
-        //     `${result.year}-${result.month}: ${columnEntry}`
-        //   );
-        //   // console.log('hi', columnEntry, stringValue);
-        // }
-
-        // Sometime around early 2021, Robert introduced double quotes to some of the values. He
-        // wants to keep us on our toes!
-        // if (columnName === 'realEarnings' && / *" *$/.test(stringValue)) {
-        //   stringValue = stringValue.replace(/ *" *$/, '');
-        // }
-
-        const numericValue = Number(stringValue);
-
-        const valueToUse = Number.isNaN(numericValue) ? null : numericValue;
-
-        result[columnName] = valueToUse;
-        return result;
+    return _.defaults(
+      {
+        ...data,
+        cape: data.cape === 'NA' ? null : data.cape,
+        dateFractionDecimal: numericFractionInformation,
+        month: numericMonth,
+        year: numericYear,
       },
-      {}
+      {
+        dividend: null,
+        realDividend: null,
+        earnings: null,
+        realEarnings: null,
+        realTotalReturnScaledEarnings: null,
+      }
     );
-
-    // Sometimes, there are placeholder or empty rows. We check the date column
-    // to see if that's the case
-    const rowIsEmpty = Boolean(labeledRow.date);
-    return rowIsEmpty ? labeledRow : null;
   })
-  // Filter out empty rows, which are returned as `null` above
-  .filter()
   .value();
 
-// This stringified data is what we will store on the filesystem
-const marketDataJson = JSON.stringify(labeledData);
+const marketDataJson = JSON.stringify(parsedData);
 
-// Ensure the destination directory exists
+const DESTINATION_DIRECTORY = path.join(__dirname, '..');
+const DESTINATION_FILENAME = 'data.json';
+
 mkdirp.sync(DESTINATION_DIRECTORY);
-
-// Lastly, save the transformed data
 const destFileLoc = path.join(DESTINATION_DIRECTORY, DESTINATION_FILENAME);
 fs.writeFileSync(destFileLoc, marketDataJson);
-
 console.log(chalk.green(`Success! Market data created at: "${destFileLoc}"`));

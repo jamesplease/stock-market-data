@@ -4,7 +4,7 @@
 
 U.S. Stock Market data from Robert Shiller.
 
-> Data last updated: **April 2020**
+> Data last updated: **April 2021**
 
 ## Installation
 
