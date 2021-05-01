@@ -19,6 +19,8 @@ const workbook = XLSX.readFile(sourceFileLoc, {
 var first_sheet_name = workbook.SheetNames[4];
 var worksheet = workbook.Sheets[first_sheet_name];
 
+// This map is largely a hold-over from a previous build script. As you'll see below,
+// all that's currently used is an array of the `key` entries.
 const attributeNames = [
   { displayName: 'A', key: 'date' },
   { displayName: 'B', key: 'comp' },
@@ -47,6 +49,13 @@ var labeledData = XLSX.utils.sheet_to_json(worksheet, {
   header: keys,
   raw: true,
 });
+
+if (labeledData.length < 1800) {
+  console.error(
+    `[Error] Expected more rows. The format of the data may have changed. Please check the spreadsheet.`
+  );
+  process.exit(1);
+}
 
 const parsedData = _.chain(labeledData)
   .filter((data) => typeof data.date === 'number')

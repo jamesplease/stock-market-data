@@ -16,10 +16,6 @@ describe('marketData', () => {
       _.forEach(marketData, (monthValue) => {
         const keys = Object.keys(monthValue);
 
-        if (keys.length === 14) {
-          console.log('14', monthValue);
-        }
-
         expect(keys.length).toBe(16);
       });
     });
