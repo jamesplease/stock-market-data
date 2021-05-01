@@ -139,9 +139,38 @@ const labeledData = _.chain(dataRows)
           result.dateFractionDecimal = numericFractionInformation;
         }
 
+        if (result.year === 1990 && result.month === 12) {
+          console.log(
+            columnIndex,
+            `${result.year}-${result.month}: ${columnEntry}`
+          );
+        }
+
         // '\r' appears in every CAPE column, so we remove it
-        const stringValue = columnEntry.replace('\r', '');
+        let stringValue = columnEntry.replace('\r', '');
+
+        // Get rid of spaces and double quotes. Bob is keeping us on our toes.
+        stringValue = stringValue.replaceAll(/\s/g, '');
+        stringValue = stringValue.replaceAll('"', '');
+        // He also added commas :(
+        stringValue = stringValue.replaceAll(',', '');
+
+        // if (columnName === 'cape') {
+        //   console.log(
+        //     columnIndex,
+        //     `${result.year}-${result.month}: ${columnEntry}`
+        //   );
+        //   // console.log('hi', columnEntry, stringValue);
+        // }
+
+        // Sometime around early 2021, Robert introduced double quotes to some of the values. He
+        // wants to keep us on our toes!
+        // if (columnName === 'realEarnings' && / *" *$/.test(stringValue)) {
+        //   stringValue = stringValue.replace(/ *" *$/, '');
+        // }
+
         const numericValue = Number(stringValue);
+
         const valueToUse = Number.isNaN(numericValue) ? null : numericValue;
 
         result[columnName] = valueToUse;

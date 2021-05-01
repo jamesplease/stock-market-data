@@ -222,7 +222,7 @@ describe('marketData', () => {
       });
 
       describe('has values that are unchanged', () => {
-        it('1990, December', () => {
+        it('1990, January', () => {
           const monthValue = _.find(marketData, {
             year: 1990,
             month: 1,
