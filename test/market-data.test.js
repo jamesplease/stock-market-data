@@ -279,7 +279,7 @@ describe('marketData', () => {
             month: 1,
           });
 
-          expect(monthValue.cape).toBe(5.989667771139438);
+          expect(monthValue.cape).toBe(5.989667771139443);
         });
 
         it('1990, December', () => {
@@ -288,7 +288,7 @@ describe('marketData', () => {
             month: 12,
           });
 
-          expect(monthValue.cape).toBe(15.846314974728765);
+          expect(monthValue.cape).toBe(15.84631497472876);
         });
       });
     });

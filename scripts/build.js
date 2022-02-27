@@ -41,6 +41,42 @@ const attributeNames = [
     displayName: 'M',
     key: 'cape',
   },
+  {
+    displayName: 'N',
+    key: 'blank001',
+  },
+  {
+    displayName: 'O',
+    key: 'trCape',
+  },
+  {
+    displayName: 'P',
+    key: 'blank002',
+  },
+  {
+    displayName: 'Q',
+    key: 'blank003',
+  },
+  {
+    displayName: 'R',
+    key: 'monthlyTotalBondReturns',
+  },
+  {
+    displayName: 'S',
+    key: 'bondReturns',
+  },
+  {
+    displayName: 'T',
+    key: '10yrAnnualizedStockRealReturns',
+  },
+  {
+    displayName: 'U',
+    key: '10yrAnnualizedondsRealReturns',
+  },
+  {
+    displayName: 'V',
+    key: '10yrExcessAnnualizedReturns',
+  },
 ];
 
 const keys = attributeNames.map((attr) => attr.key);
