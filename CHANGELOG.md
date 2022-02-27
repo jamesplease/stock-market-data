@@ -1,5 +1,10 @@
 # Changelog
 
+### v2.2.0 (2022/2/27)
+
+- Updated historical data
+- Added new data fields from the latest Shiller data set
+
 ### v2.1.0 (2021/4/30)
 
 - Added data through April 2021
