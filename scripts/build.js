@@ -128,6 +128,7 @@ const parsedData = _.chain(labeledData)
     return _.defaults(
       {
         ...data,
+        trCape: data.trCape === 'NA' ? null : data.trCape,
         cape: data.cape === 'NA' ? null : data.cape,
         dateFractionDecimal: numericFractionInformation,
         month: numericMonth,
