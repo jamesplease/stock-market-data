@@ -13,10 +13,15 @@ describe('marketData', () => {
 
   describe('data shape', () => {
     it('each month has the right number of keys', () => {
+      // This used to be just one value, but as of 2022 he is now being less consistent
+      // between months.
+      const validLengths = [22, 23, 20, 19];
+
       _.forEach(marketData, (monthValue) => {
         const keys = Object.keys(monthValue);
 
-        expect(keys.length).toBe(16);
+        const isAcceptableLength = validLengths.includes(keys.length);
+        expect(isAcceptableLength).toBe(true);
       });
     });
 
@@ -64,6 +69,7 @@ describe('marketData', () => {
     it('has no values that are NaN or strings', () => {
       _.forEach(marketData, (monthValue) => {
         _.forEach(monthValue, (value) => {
+
           expect(Number.isNaN(value)).toBe(false);
           expect(typeof value === 'string').toBe(false);
         });
@@ -279,7 +285,7 @@ describe('marketData', () => {
             month: 1,
           });
 
-          expect(monthValue.cape).toBe(5.989667771139443);
+          expect(monthValue.cape).toBeCloseTo(5.98966777113944, 6);
         });
 
         it('1990, December', () => {
@@ -288,7 +294,7 @@ describe('marketData', () => {
             month: 12,
           });
 
-          expect(monthValue.cape).toBe(15.84631497472876);
+          expect(monthValue.cape).toBeCloseTo(15.846314974728756, 6);
         });
       });
     });
