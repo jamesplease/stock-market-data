@@ -1,5 +1,9 @@
 # Changelog
 
+### v2.3.0 (2023/6/17)
+
+- Updated historical data
+
 ### v2.2.0 (2022/2/27)
 
 - Updated historical data
