@@ -75,7 +75,7 @@ The following table goes into more detail about the individual data points provi
 | comp                | The cost of a single share of the S&P 500                                                                                         |
 | dividend            | Dividends paid, in USD                                                                                                            |
 | earnings            | Earnings per share                                                                                                                |
-| cpi                 | The value of the Consumer Price Index (CPI)                                                                                       |
+| cpi                 | The value of the Consumer Price Index (CPI) for All Urban Consumers.                                                              |
 | lir                 | The historical interest rates for the 10-Year Treasury Note                                                                       |
 | realPrice           | Inflation adjusted `comp` (compared against the last month in the dataset)                                                        |
 | realDividend        | Inflated adjusted `dividend` (compared against the last month in the dataset)                                                     |
